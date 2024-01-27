@@ -27,6 +27,13 @@ contract Type {
         }
     }
 
+    uint8 public crit = type(uint8).max;
+
+    function incrementInOldVersion() public {
+        // pragma solidity <0.8.0; not error without using unchecked!!!!
+        crit++;
+    }
+
     // decrement
     uint8 public myValue = 1;
 
