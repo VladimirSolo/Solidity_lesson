@@ -26,6 +26,7 @@ contract Type {
             myVal++; // return to min 0
         }
     }
+
     // decrement
     uint8 public myValue = 1;
 
@@ -41,7 +42,8 @@ contract Type {
     // 0 - (256 - 1)
 
     // signed integers -1
-    uint public myInt = -42;
+    int public myInt = -42;
+    int8 public mySmallInt = -1;
 
     function math(uint _inputUint) public {
         uint localUint = 42;
