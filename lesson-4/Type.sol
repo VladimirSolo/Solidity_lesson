@@ -50,24 +50,6 @@ contract Type {
         return tempArray; // 0:uint256[]: 1,0,0,0,0,0,0,0,0,0
     }
 
-     // Byte
-     // fixed 
-    bytes32 public myVar = "test here"; //  0:bytes32: 0x7465737420686572650000000000000000000000000000000000000000000000
-     // dynamic 
-    bytes public myDynVar = "test here"; //0:bytes: 0x746573742068657265
-    bytes public myDynVarUnicode = unicode"привет солид"; // bytes: 0xd0bfd180d0b8d0b2d0b5d18220d181d0bed0bbd0b8d0b4
-    // 1 --> 32
-    // 32 * 8 = 256 max
-    // uint256
-
-    function func() public view returns(uint) {
-        return myDynVarUnicode.length; // uint256: 23
-    }
-
-   function firstByte() public view returns(bytes1) {
-        return myDynVar[0]; // bytes1: 0x74 return byte first 't'
-    }
-
  // Struct
     struct Payment {
         uint amount;
