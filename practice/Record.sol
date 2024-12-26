@@ -2,20 +2,39 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 /**
+ * @title BaseRecord
+ * @dev Abstract contract providing common functionality for record-based contracts.
+ *      Stores the creation timestamp and a string identifier for the record type.
+ *      Designed to be inherited by contracts handling specific types of records,
+ *      such as string or address records.
+ */
+abstract contract BaseRecord {
+    uint public timeOfCreation; // Timestamp of record creation
+    string public recordType;   // Type of the record ("String", "Address", etc.)
+
+    /**
+     * @dev Constructor to initialize the creation time and record type.
+     * @param _recordType A string indicating the type of the record (e.g., "String" or "Address").
+     */
+    constructor(string memory _recordType) {
+        timeOfCreation = block.timestamp; // Set the creation time to the current block timestamp
+        recordType = _recordType;         // Assign the provided record type
+    }
+}
+
+/**
  * @title StringRecord
  * @dev A contract to store and manage a string record. 
  *      Includes functionality to initialize, update, and retrieve the record.
  */
-contract StringRecord {
-    uint public timeOfCreation;
+contract StringRecord is BaseRecord {
     string public record;
 
-    /**
+   /**
      * @dev Constructor to initialize the `StringRecord` contract with a given string.
      * @param _record The initial string value for the record.
      */
-    constructor(string memory _record) {
-        timeOfCreation = block.timestamp;
+    constructor(string memory _record) BaseRecord("String") {
         record = _record;
     }
 
@@ -41,16 +60,14 @@ contract StringRecord {
  * @dev A contract to store and manage an address record. 
  *      Includes functionality to initialize, update, and retrieve the record.
  */
-contract AddressRecord {
-    uint public timeOfCreation;
+contract AddressRecord is BaseRecord {
     address public record;
 
     /**
      * @dev Constructor to initialize the `AddressRecord` contract with a given address.
      * @param _record The initial address value for the record.
      */
-    constructor(address _record) {
-        timeOfCreation = block.timestamp;
+    constructor(address _record) BaseRecord("Address") {
         record = _record;
     }
 
