@@ -136,3 +136,39 @@ contract RecordFactory {
         return records;
     }
 }
+
+/**
+ * @title EnsRecord
+ * @dev Contract for managing ENS records, extending the BaseRecord abstract contract.
+ */
+contract EnsRecord is BaseRecord {
+    string public domain;           // Domain name
+    address public owner;           // Domain owner
+
+    /**
+     * @dev Constructor for creating an ENS record.
+     * @param _domain The name of the domain.
+     * @param _owner The address of the domain owner.
+     */
+    constructor(string memory _domain, address _owner) BaseRecord("ens") {
+        domain = _domain; // Set the domain name
+        owner = _owner;   // Set the owner address
+    }
+
+    /**
+     * @dev Returns the type of the record (in this case, "ens").
+     * @return A string indicating the record type.
+     */
+    function getRecordType() public pure returns (string memory) {
+        return "ens";  // This explicitly returns the ENS record type
+    }
+
+    /**
+     * @dev Updates the domain owner. Only the current owner can call this function.
+     * @param newOwner The address of the new domain owner.
+     */
+    function setOwner(address newOwner) public {
+        require(msg.sender == owner, "Only the current owner can change the owner"); // Ensure only the current owner can change the owner
+        owner = newOwner; // Update the owner
+    }
+}
