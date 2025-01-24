@@ -1,0 +1,16 @@
+{
+  "name": "lesson-11-security",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.18"
+  }
+}
