@@ -6,11 +6,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TokenExchange is Ownable {
     IERC20 token;
-    address owner;
 
     constructor(address _token) Ownable(msg.sender) {
         token = IERC20(_token);
-        owner = msg.sender;
     }
 
     function byu() public payable {
