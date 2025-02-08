@@ -11,7 +11,7 @@ contract TokenExchange is Ownable {
         token = IERC20(_token);
     }
 
-    function byu() public payable {
+    function buy() public payable {
         uint amount = msg.value; // wei
 
         require(amount >= 1);
@@ -37,6 +37,6 @@ contract TokenExchange is Ownable {
     function topUp() external payable onlyOwner {}
 
     receive() external payable {
-        byu();
+        buy();
     }
 }

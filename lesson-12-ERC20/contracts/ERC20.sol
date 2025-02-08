@@ -105,8 +105,11 @@ contract ERC20 is IERC20, IERC20Metadata {
                 revert ERC20InsufficientBalance(from, fromBalance, value);
             }
              */
+            require(
+                fromBalance >= value,
+                "ERC20: transfer amount exceeds balance"
+            );
 
-            require(fromBalance < value);
             unchecked {
                 // Overflow not possible: value <= fromBalance <= totalSupply.
                 _balances[from] = fromBalance - value;
