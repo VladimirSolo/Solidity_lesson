@@ -48,13 +48,13 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
         if (from == address(0)) {
             _addTokenToAllTokensEnumeration(tokenId);
         } else if (from != to) {
-            _removeTokenFromAllTokensEnumeration(tokenId);
+            _removeTokenFromOwnerEnumeration(from, tokenId);
         }
 
         if (to == address(0)) {
             _removeTokenFromAllTokensEnumeration(tokenId);
         } else if (to != from) {
-            _addTokenToAllTokensEnumeration(tokenId);
+            _addTokenToOwnerEnumeration(to, tokenId);
         }
     }
 
@@ -84,7 +84,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 
     function _addTokenToOwnerEnumeration(address to, uint tokenId) private {
-        uint length = balanceOf(to) - 1;
+        uint length = balanceOf(to);
         _ownedTokens[to][length] = tokenId;
         _ownedTokensIndex[tokenId] = length;
     }
@@ -96,7 +96,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
-        uint lastTokenIndex = balanceOf(from);
+        uint lastTokenIndex = balanceOf(from) - 1;
         uint tokenIndex = _ownedTokensIndex[tokenId];
 
         mapping(uint index => uint) storage _ownedTokensByOwner = _ownedTokens[

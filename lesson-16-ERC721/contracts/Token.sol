@@ -16,7 +16,7 @@ contract Token is ERC721, ERC721URIStorage, ERC721Enumerable {
     function safeMint(address to, string calldata tokenId) public {
         require(owner == msg.sender, "Not an owner!");
 
-        _safeMint(to, tokenId);
+        _safeMint(to, currentTokenId);
         _setTokenURI(currentTokenId, tokenId);
         currentTokenId++;
     }
