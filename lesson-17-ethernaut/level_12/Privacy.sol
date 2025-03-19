@@ -65,3 +65,17 @@ to slots 4 and 5 for its elements.
 
 Once found, cast it as bytes16 to truncate the packed zeros.
  */
+
+contract Test {
+    uint256 public x = 42;
+    string public phrase = "Test";
+    uint[] public array = [5, 6, 7];
+
+    function hash(uint _idx) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(_idx));
+    }
+
+    function convert(bytes32 _data) public pure returns (bytes16) {
+        return bytes16(_data);
+    }
+}
