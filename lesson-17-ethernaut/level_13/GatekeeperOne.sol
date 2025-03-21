@@ -37,3 +37,22 @@ contract GatekeeperOne {
         return true;
     }
 }
+
+contract Calculator {
+    uint256 public max16 = type(uint16).max;
+    uint256 public max32 = type(uint32).max;
+    uint256 public max64 = type(uint64).max;
+    uint256 public max256 = type(uint256).max;
+
+    function toU16fromAddr(address addr) public pure returns (uint16) {
+        return uint16(uint160(addr));
+    }
+
+    function toU32(uint256 num) public pure returns (uint32) {
+        return uint32(num);
+    }
+
+    function toBytes8(uint256 val) public pure returns (bytes8) {
+        return bytes8(uint64(val));
+    }
+}
