@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "openzeppelin-contracts-08/proxy/Proxy.sol";
-import "openzeppelin-contracts-08/utils/Address.sol";
+import "./Proxy.sol";
+import "./Address.sol";
 
 /**
  *
