@@ -3,7 +3,8 @@
 pragma solidity ^0.8.0;
 
 import "./Proxy.sol";
-import "./Address.sol";
+
+// import "./Address.sol";
 
 /**
  *
@@ -73,8 +74,12 @@ contract UpgradeableProxy is Proxy {
      * @dev Stores a new address in the EIP1967 implementation slot.
      */
     function _setImplementation(address newImplementation) private {
-        require(
+        /*         require(
             Address.isContract(newImplementation),
+            "UpgradeableProxy: new implementation is not a contract"
+        ); */
+        require(
+            newImplementation.code.length > 0,
             "UpgradeableProxy: new implementation is not a contract"
         );
 
