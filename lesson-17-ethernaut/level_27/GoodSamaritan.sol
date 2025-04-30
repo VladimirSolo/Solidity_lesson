@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "openzeppelin-contracts-08/utils/Address.sol";
+// import "openzeppelin-contracts-08/utils/Address.sol";
 
 contract GoodSamaritan {
     Wallet public wallet;
@@ -32,7 +32,7 @@ contract GoodSamaritan {
 }
 
 contract Coin {
-    using Address for address;
+    // using Address for address;
 
     mapping(address => uint256) public balances;
 
@@ -50,8 +50,8 @@ contract Coin {
         if (amount_ <= currentBalance) {
             balances[msg.sender] -= amount_;
             balances[dest_] += amount_;
-
-            if (dest_.isContract()) {
+            // dest.isContract() not use
+            if (dest_.code.length > 0) {
                 // notify contract
                 INotifyable(dest_).notify(amount_);
             }
