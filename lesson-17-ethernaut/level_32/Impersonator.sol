@@ -131,6 +131,11 @@ contract ECLocker {
         address _address = ecrecover(msgHash, v, r, s);
         require(_address == controller, InvalidController());
 
+        // Need use
+        /* bytes32 signatureHash = keccak256(abi.encode(r, s, v)); */
+        // Or
+        /* bytes32 signatureHash = keccak256(abi.encodePacked(r, s, v)); */
+
         bytes32 signatureHash = keccak256(
             abi.encode([uint256(r), uint256(s), uint256(v)])
         );
