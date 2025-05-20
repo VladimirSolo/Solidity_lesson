@@ -8,10 +8,18 @@ contract BlockNumber {
      * If it is called more than once per block, the second and later calls revert.
      * To pass the test, it needs a storage variable that stores the last blocknumber where it was accessed.
      */
-
     address public lastCaller;
+    uint256 public lastBlockNumber; // Storage variable to track the last block number
 
     function callMe() external {
-        /// your code here
+        // Check if the function was already called in this block
+        require(
+            block.number > lastBlockNumber,
+            "Function already called in this block"
+        );
+
+        // Update the lastCaller and lastBlockNumber
+        lastCaller = msg.sender;
+        lastBlockNumber = block.number;
     }
 }
