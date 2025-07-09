@@ -20,3 +20,32 @@ contract SelfDestroyer {
         balance = address(this).balance;
     }
 }
+
+/* 
+Что делает selfdestruct:
+Удаляет байткод контракта с адреса.
+
+Очищает хранилище (storage).
+
+Переводит весь оставшийся баланс на указанный адрес.
+
+После этого вызовы к этому контракту больше невозможны 
+(контракт как будто "никогда не существовал", но его следы останутся в истории транзакций).
+
+
+pragma solidity ^0.8.0;
+
+contract KillMe {
+    address payable public owner;
+
+    constructor() {
+        owner = payable(msg.sender);
+    }
+
+    function destroy() public {
+        require(msg.sender == owner, "Not the owner");
+        selfdestruct(owner); // отправит весь эфир и удалит контракт
+    }
+}
+
+ */
