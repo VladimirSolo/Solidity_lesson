@@ -29,12 +29,12 @@ contract SkillsCoin is ERC20 {
 
     // Mint to the caller
     function mint(uint256 amount) public {
-        // your code here
+        _mint(msg.sender, amount);
     }
 }
 
 contract RareCoin is ERC20 {
-    SkillsCoin skillsCoin;
+    SkillsCoin public skillsCoin;
 
     constructor(
         string memory _name,
@@ -51,5 +51,12 @@ contract RareCoin is ERC20 {
         // this will fail if there is insufficient approval or balance
         // require(ok, "call failed");
         // more code
+
+        // Transfer SkillsCoin from the user to this contract
+        bool ok = skillsCoin.transferFrom(msg.sender, address(this), amount);
+        require(ok, "SkillsCoin transfer failed");
+
+        // Mint RareCoin to the user
+        _mint(msg.sender, amount);
     }
 }
